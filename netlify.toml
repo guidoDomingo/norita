@@ -1,0 +1,3 @@
+[build]
+  publish = "/"
+  command = ""  # No ejecutar ningún comando de compilación
