@@ -75,40 +75,70 @@
 
   <style>
 
-/* Estilo del contenedor de Google Translate */
+/* Estilo flotante para el selector de idioma */
 #google_translate_element {
-  display: inline-block !important;
-  vertical-align: middle !important;
-  margin-left: 20px; /* Espaciado entre los elementos del menú */
+  position: fixed;
+  bottom: 200px; /* Ajusta para que esté sobre el botón de WhatsApp */
+  right: 10px;
+  background-color: #ff9f9f !important; /* Mismo color que el botón "Reservar" */
+  padding: 2px;
+  border-radius: 50px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
-/* Ocultar el logo de Google Translate */
-.goog-te-gadget img {
+/* Personalizar el combo de Google Translate */
+.goog-te-gadget {
+  font-size: 16px !important;
+  color: white !important;
+}
+
+.goog-te-combo {
+  background-color: white !important;
+  color: #333 !important;
+  border-radius: 5px;
+  padding: 1px;
+  font-size: 14px;
+}
+
+/* Cambiar color de texto del selector */
+#google_translate_element .goog-te-gadget-simple {
+  color: rgb(242, 236, 236) !important; 
+  font-weight: bold;
+  background-color: #ff9f9f !important;
+  border-radius: 20px;
+  padding: 1px 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 100px;
+}
+
+/* Asegurar que el texto dentro del selector también sea visible */
+#google_translate_element .goog-te-gadget-simple span {
+  color: rgb(245, 241, 241) !important;
+  font-size: 16px;
+}
+/* Ocultar el icono de Google */
+#google_translate_element .goog-te-gadget-simple img {
   display: none !important;
 }
 
-/* Reducir el tamaño del select y personalizar */
-.goog-te-gadget select {
-  background: #fff !important;
-  border: 1px solid #ccc !important;
-  border-radius: 5px !important;
-  padding: 3px 8px !important;
-  font-size: 14px !important;
-  height: 30px !important;
-  vertical-align: middle !important;
-  cursor: pointer !important;
+@media (max-width: 768px) {
+  #google_translate_element {
+    position: fixed;
+    bottom: auto; /* Ajusta para que esté sobre el botón de WhatsApp */
+    right: 3%;
+    background-color: #ff9f9f !important; /* Mismo color que el botón "Reservar" */
+    padding: 2px;
+    border-radius: 50px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 5000; /* Asegura que esté por encima de otros elementos */
+  }
 }
 
-/* Alinear el selector con los elementos del menú */
-.rd-navbar-nav > li {
-  display: inline-block;
-  vertical-align: middle;
-}
 
-/* Ajustar el espacio del select dentro del menú */
-.rd-navbar-nav > li:last-child {
-  padding-left: 10px; /* Espaciado entre el último elemento y el selector */
-}
 
 
 
@@ -163,14 +193,14 @@
 
                     
                     <!-- Contenedor para el selector de idioma -->
-                     <li>
+                     <!-- <li class="rd-nav-item"> -->
 
                        <!-- <div id="custom_google_translate"> -->
                          <!-- <span class="translate-label">🌎 Idiomas:</span> -->
-                         <div id="google_translate_element"></div>
+                         <!-- <div style="background-color: #ff9f9f !important;" id="google_translate_element"></div> -->
                        <!-- </div> -->
                       
-                     </li>
+                     <!-- </li> -->
 
                     
                       
@@ -757,6 +787,55 @@
     <div class="snackbars" id="form-output-global"></div>
     <script src="js/core.min.js"></script>
     <script src="js/script.js"></script>
+
+    <script>
+      function updateLanguageText() {
+        setTimeout(function() {
+            // Encuentra el texto dentro del contenedor de Google Translate
+            let googleTranslateSelect = document.querySelector(".goog-te-gadget-simple");
+            if (googleTranslateSelect) {
+                // Encuentra el texto del idioma seleccionado
+                let selectedLangSpan = googleTranslateSelect.querySelector("span");
+                if (selectedLangSpan) {
+                    // Traduce el nombre al idioma visible
+                    let langText = selectedLangSpan.innerText.toLowerCase();
+                    let translatedText = langText.includes("select") ? "Idioma" : 'Idioma';
+    
+                    // Reemplaza "Seleccionar idioma" por "Idioma"
+                    selectedLangSpan.innerText = translatedText;
+                }
+            }
+        }, 1000); // Espera 1 segundo para asegurarse de que Google Translate ha cargado
+    }
+    
+    // Ejecuta la función cuando se haya cambiado el idioma
+    window.addEventListener("load", function() {
+        updateLanguageText();
+        document.addEventListener("click", function() {
+            updateLanguageText();
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.innerWidth <= 768) { // Solo afecta a dispositivos pequeños
+        var langSelector = document.getElementById("language-selector");
+        if (langSelector) {
+          langSelector.style.position = "fixed";
+          langSelector.style.top = "3%";
+          langSelector.style.right = "10px";
+          langSelector.style.zIndex = "9999";
+        }
+      }
+    });
+    
+    
+    </script>
     <!--coded by dyoma-->
+
+    <!-- Contenedor flotante para el selector de idioma -->
+<div id="language-selector">
+  <div id="google_translate_element"></div>
+</div>
+
   </body>
 </html>
