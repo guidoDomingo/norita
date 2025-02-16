@@ -11,7 +11,110 @@
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style.css">
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+              pageLanguage: 'es',
+              includedLanguages: 'es,en,pt',
+              layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+          }, 'google_translate_element');
+      }
+  
+      function changeLanguage(lang) {
+          console.log("Cambiando a:", lang);
+          
+          let checkExist = setInterval(function() {
+              var selectField = document.querySelector(".goog-te-combo");
+              console.log(selectField);
+              if (selectField) {
+                  selectField.value = lang;
+                  selectField.dispatchEvent(new Event("change"));
+  
+                  // Cambiar el texto del botón de idioma
+                  document.getElementById("selectedLang").textContent =
+                      lang === "es" ? "🇪🇸 Español" :
+                      lang === "en" ? "🇬🇧 English" :
+                      "🇧🇷 Português";
+  
+                  clearInterval(checkExist); // Detener el intervalo cuando se encuentra el select
+              }
+          }, 500); // Repetir cada 500ms hasta que el select esté disponible
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        let hideTranslateBar = setInterval(() => {
+            // Ocultar la barra superior de Google Translate
+            let googleTranslateBar = document.querySelector(".VIpgJd-ZVi9od-ORHb");
+            if (googleTranslateBar) {
+                googleTranslateBar.style.display = "none";
+            }
+    
+            // Ocultar el iframe de Google Translate
+            let googleTranslateIframe = document.querySelector("iframe.VIpgJd-ZVi9od-ORHb-OEVmcd");
+            if (googleTranslateIframe) {
+                googleTranslateIframe.style.display = "none";
+            }
+    
+            // Si ya ocultó los elementos, detener el intervalo
+            if (googleTranslateBar || googleTranslateIframe) {
+                clearInterval(hideTranslateBar);
+            }
+        }, 500); // Ejecutar cada 500ms hasta que lo oculte
+    });
+    
+    
+    
+    
+  </script>
+  
+  
+  
+    
   </head>
+
+  <style>
+
+/* Estilo del contenedor de Google Translate */
+#google_translate_element {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  margin-left: 20px; /* Espaciado entre los elementos del menú */
+}
+
+/* Ocultar el logo de Google Translate */
+.goog-te-gadget img {
+  display: none !important;
+}
+
+/* Reducir el tamaño del select y personalizar */
+.goog-te-gadget select {
+  background: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: 5px !important;
+  padding: 3px 8px !important;
+  font-size: 14px !important;
+  height: 30px !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+}
+
+/* Alinear el selector con los elementos del menú */
+.rd-navbar-nav > li {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Ajustar el espacio del select dentro del menú */
+.rd-navbar-nav > li:last-child {
+  padding-left: 10px; /* Espaciado entre el último elemento y el selector */
+}
+
+
+
+
+
+  </style>
   <body>
     <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <div class="preloader">
@@ -57,6 +160,21 @@
                       </li>
                       <li class="rd-nav-item"><a class="rd-nav-link" href="#testimonios">Testimonios</a>
                       </li>
+
+                    
+                    <!-- Contenedor para el selector de idioma -->
+                     <li>
+
+                       <!-- <div id="custom_google_translate"> -->
+                         <!-- <span class="translate-label">🌎 Idiomas:</span> -->
+                         <div id="google_translate_element"></div>
+                       <!-- </div> -->
+                      
+                     </li>
+
+                    
+                      
+                      
                       <!-- <li class="rd-nav-item"><a class="rd-nav-link" href="#">Pages</a>
                         <ul class="rd-menu rd-navbar-dropdown">
                           <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="typography.html">Typography</a>
@@ -76,6 +194,7 @@
                     </ul>
                   </div>
                 </div>
+                
                 <div class="rd-nav-item">
                   <div class="btn-wrap"><a class="button button-secondary button-sm" href="https://wa.me/34662646347">Reservar</a></div>
                 </div>
